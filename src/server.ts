@@ -300,7 +300,10 @@ function shouldIncludeTool(toolName: string): boolean {
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     try {
         // logToStderr('debug', 'Generating tools list...');
-        const showMcpUiPreviews = await shouldShowMcpUiPreviews();
+        // const showMcpUiPreviews = await shouldShowMcpUiPreviews();
+        const showMcpUiPreviews = process.env.DC_DISABLE_MCP_UI === '1'
+            ? false
+            : await shouldShowMcpUiPreviews();
 
         // Build complete tools array
         const allTools = [
